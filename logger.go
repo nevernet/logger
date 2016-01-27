@@ -14,25 +14,25 @@ func init() {
 }
 
 func Trace(format string, v ...interface{}) {
-	Log.Trace(format, v)
+	Log.Trace(format, v...)
 }
 
 func Debug(format string, v ...interface{}) {
-	Log.Debug(format, v)
+	Log.Debug(format, v...)
 }
 
 func Info(format string, v ...interface{}) {
-	Log.Info(format, v)
+	Log.Info(format, v...)
 }
 
 func Warn(format string, v ...interface{}) {
-	Log.Warn(format, v)
+	Log.Warn(format, v...)
 }
 
 func Error(format string, v ...interface{}) {
-	Log.Error(format, v)
+	Log.Error(format, v...)
 }
 
 func Critical(format string, v ...interface{}) {
-	Log.Critical(format, v)
+	Log.Critical(format, v...)
 }
