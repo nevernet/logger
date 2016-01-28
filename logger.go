@@ -36,3 +36,11 @@ func Error(format string, v ...interface{}) {
 func Critical(format string, v ...interface{}) {
 	Log.Critical(format, v...)
 }
+
+func Flush() {
+	Log.Flush()
+}
+
+func Close() {
+	Log.Close()
+}
