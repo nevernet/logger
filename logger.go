@@ -1,46 +1,66 @@
 package logger
 
-import "github.com/astaxie/beego/logs"
+import (
+	"fmt"
 
-var Log *logs.BeeLogger
+	"github.com/astaxie/beego/logs"
+)
+
+type logBridge struct {
+}
+
+var log *logs.BeeLogger
 
 func init() {
-	Log = logs.NewLogger(10000)
-	Log.SetLogger("console", `{"level": 10}`)
-	Log.SetLevel(logs.LevelDebug)
-	Log.EnableFuncCallDepth(true)
-	Log.SetLogFuncCallDepth(3)
-	Log.Async()
+	log = logs.NewLogger(10000)
+	log.SetLogger("console", `{"level": 10}`)
+	log.SetLevel(logs.LevelDebug)
+	log.EnableFuncCallDepth(true)
+	log.SetLogFuncCallDepth(3)
+	log.Async()
+}
+
+func SetLogger(adapterName string, configs ...string) {
+	log.SetLogger(adapterName, configs...)
+}
+
+func SetFileLogger(filename string, maxlines int, maxsize int, daily bool, maxdays int, rotate bool, level string, separate string) {
+	configs := fmt.Sprintf(`{"filename":"%s", "maxlines":%d, "maxsize":%d, "daily":%t, "maxdays":%d, "rotate":%t, "level":"%s", "separate":"%s"}`,
+		filename, maxlines, maxsize, daily, maxdays, rotate, level, separate)
+	log.SetLogger(logs.AdapterFile, configs)
+	log.EnableFuncCallDepth(true)
+	log.SetLogFuncCallDepth(3)
+	log.Async()
 }
 
 func Trace(format string, v ...interface{}) {
-	Log.Trace(format, v...)
+	log.Trace(format, v...)
 }
 
 func Debug(format string, v ...interface{}) {
-	Log.Debug(format, v...)
+	log.Debug(format, v...)
 }
 
 func Info(format string, v ...interface{}) {
-	Log.Info(format, v...)
+	log.Info(format, v...)
 }
 
 func Warn(format string, v ...interface{}) {
-	Log.Warn(format, v...)
+	log.Warn(format, v...)
 }
 
 func Error(format string, v ...interface{}) {
-	Log.Error(format, v...)
+	log.Error(format, v...)
 }
 
 func Critical(format string, v ...interface{}) {
-	Log.Critical(format, v...)
+	log.Critical(format, v...)
 }
 
 func Flush() {
-	Log.Flush()
+	log.Flush()
 }
 
 func Close() {
-	Log.Close()
+	log.Close()
 }
